@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <style>
+      /* Add some styling to the page */
+      body {
+        font-family: sans-serif;
+      }
+
+      .slot-machine {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .slot {
+        border: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+      }
+
+      .payline {
+        border-top: 3px solid green;
+      }
+
+      button {
+        margin-top: 20px;
+        font-size: 16px;
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+      }
+      .flash {
+  background-color: green;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="slot-machine">
+      <div class="slot" id="slot1"></div>
+      <div class="slot" id="slot2"></div>
+      <div class="slot" id="slot3"></div>
+      <div class="payline"></div>
+    </div>
+    <button id="spinButton">Spin</button>
+
+    <script>
+      // Create an array of symbols that can appear on the slots
+      const symbols = ['🍒', '🍊', '🍋', '🍉', '🍇'];
+
+      // Get a reference to the spin button and the slots
+      const spinButton = document.getElementById('spinButton');
+      const slot1 = document.getElementById('slot1');
+      const slot2 = document.getElementById('slot2');
+      const slot3 = document.getElementById('slot3');
+
+      // Add an event listener to the spin button that will spin the slots when clicked
+      spinButton.addEventListener('click', () => {
+        // Generate random symbols for each slot
+        const symbol1 = symbols[Math.floor(Math.random() * symbols.length)];
+        const symbol2 = symbols[Math.floor(Math.random() * symbols.length)];
+        const symbol3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+        // Update the slots with the new symbols
+        slot1.textContent = symbol1;
+        slot2.textContent = symbol2;
+        slot3.textContent = symbol3;
+
+        // Check if the symbols on the payline match
+        if (symbol1 === symbol2 && symbol2 === symbol3) {
+          // If they match, flash the page green 5 times
+          flashGreen(5);
+        }
+      });
+
+      // This function will flash the page green by adding and removing a class
+      function flashGreen(times) {
+        // Recursively call the function until the specified number of times has been reached
+        if (times > 0) {
+          // Add the "flash" class to the body element
+          document.body.classList.add('flash');
+
+// Wait for 100 milliseconds, then remove the "flash" class and call the function again
+setTimeout(() => {
+  document.body.classList.remove('flash');
+  flashGreen(times - 1);
+}, 100);
+</script>
+</body>
+</html>
